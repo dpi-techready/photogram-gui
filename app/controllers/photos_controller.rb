@@ -18,6 +18,20 @@ class PhotosController < ApplicationController
     the_photo = matching_photos.at(0)
     the_photo.destroy
 
-    render({ :template => "photo_templates/delete.html.erb"})
-  end  
+    # render({ :template => "photo_templates/delete.html.erb"})
+    redirect_to("/photos")
+  end
+  def insert
+  input_image = params.fetch("query_image")
+  input_caption = params.fetch("query_caption")
+  input_owner_id = params.fetch("query_owner_id")
+
+  a_new_photo = Photo.new
+  a_new_photo.image = input_image
+  a_new_photo.caption = input_caption
+  a_new_photo.owner_id = input_owner_id
+
+  a_new_photo.save
+    render({ :template => "photo_templates/insert.html.erb" })
+  end    
 end  
